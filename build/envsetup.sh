@@ -1,10 +1,10 @@
 # razor functions that extend build/envsetup.sh
 
-function razor_device_combos() {
+function core_device_combos() {
     local device
 
     T="$(gettop)"
-    list_file="${T}/vendor/razor/core.devices"
+    list_file="${T}/vendor/core/core.devices"
     variant="userdebug"
 
     if [[ $1 ]]
