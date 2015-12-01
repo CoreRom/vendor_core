@@ -4,7 +4,7 @@ function razor_device_combos() {
     local device
 
     T="$(gettop)"
-    list_file="${T}/vendor/razor/razor.devices"
+    list_file="${T}/vendor/razor/core.devices"
     variant="userdebug"
 
     if [[ $1 ]]
@@ -26,21 +26,21 @@ function razor_device_combos() {
     if [[ ! -f "${list_file}" ]]
     then
         echo "unable to find device list: ${list_file}"
-        list_file="${T}/vendor/razor/razor.devices"
+        list_file="${T}/vendor/core/core.devices"
         echo "defaulting device list file to: ${list_file}"
     fi
 
     while IFS= read -r device
     do
-        add_lunch_combo "razor_${device}-${variant}"
+        add_lunch_combo "core_${device}-${variant}"
     done < "${list_file}"
 }
 
-function razor_rename_function() {
-    eval "original_razor_$(declare -f ${1})"
+function core_rename_function() {
+    eval "original_core_$(declare -f ${1})"
 }
 
-function razor_add_hmm_entry() {
+function core_add_hmm_entry() {
     f_name="${1}"
     f_desc="${2}"
 
@@ -59,7 +59,7 @@ function razor_add_hmm_entry() {
     HMM_DESCRIPTIVE=(HMM_DESCRIPTIVE[@] "$(_build_entry)")
 }
 
-function razorremote()
+function coreremote()
 {
     if ! git rev-parse &> /dev/null
     then
@@ -77,7 +77,7 @@ function razorremote()
     project="${proj//\//_}"
 
     git remote add razor "git@github.com/RAZOR-DEVS/$pfx$project"
-    echo "Remote 'razor' created"
+    echo "Remote 'core' created"
 }
 
 function cmremote()
@@ -131,10 +131,10 @@ function cafremote()
     echo "Remote 'caf' created"
 }
 
-function razor_push()
+function core_push()
 {
-    branch="lp5.1"
-    ssh_name="razor_review"
+    branch="cr5.1"
+    ssh_name="core_review"
     path_opt=
 
     if [[ "$1" ]]
@@ -152,5 +152,5 @@ function razor_push()
         proj="android_$proj"
     fi
 
-    git $path_opt push "ssh://${ssh_name}/RAZOR-DEVS/$proj" "HEAD:refs/for/$branch"
+    git $path_opt push "ssh://${ssh_name}/CoreRom/$proj" "HEAD:refs/for/$branch"
 }
