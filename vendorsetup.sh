@@ -1,3 +1,3 @@
-. "$(gettop)/vendor/razor/build/envsetup.sh"
+. "$(gettop)/vendor/core/build/envsetup.sh"
 
-razor_device_combos
+core_device_combos
